@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+import django_on_heroku
 import os
 from pathlib import Path
 
@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
+STATICFILES_DIR = [
     BASE_DIR / 'static',
 ]
 
@@ -141,3 +142,6 @@ INTERNAL_IPS = [
 
 SIMPLE_BACKEND_REDIRECT_URL = '/'
 REGISTRATION_OPEN = True
+
+django_on_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
